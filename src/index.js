@@ -7,7 +7,7 @@ import Leaderboard from "./components/Leaderboard";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <BrowserRouter basename="/">
+  <BrowserRouter>
     <Routes>
       <Route path="/" element={<App />} />
       <Route path="/game" element={<Board />} />
