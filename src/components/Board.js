@@ -25,7 +25,17 @@ const Board = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    const arr = ["first", "second", "third", "fourth"];
+    console.log(searchParams.get("board"));
+    const arr = [
+      "first",
+      "second",
+      "third",
+      "fourth",
+      "first/leaderboard",
+      "second/leaderboard",
+      "third/leaderboard",
+      "fourth/leaderboard",
+    ];
     if (!arr.includes(searchParams.get("board"))) navigate("/");
   }, [navigate, searchParams]);
 
@@ -84,8 +94,9 @@ const Board = () => {
               className={
                 "target-img" + (found.find((j) => j === x) ? " found" : "")
               }
+              key={i}
             >
-              <img src={x.imgURL} alt={"target" + i} key={i} />
+              <img src={x.imgURL} alt={"target" + i} />
             </div>
           ))}
       </span>
@@ -102,7 +113,7 @@ const Board = () => {
           status !== 1 ? (
             <button onClick={() => setStatus(0)}>Start</button>
           ) : (
-            <EndPanel time={time} />
+            <EndPanel time={time} board={searchParams.get("board")} />
           )
         ) : (
           <div id="game-img">

@@ -1,5 +1,11 @@
 import { initializeApp } from "firebase/app";
-import { doc, getDoc, getFirestore } from "firebase/firestore";
+import {
+  arrayUnion,
+  doc,
+  getDoc,
+  getFirestore,
+  updateDoc,
+} from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAqFpWgrCabpwnkNSuyvzu4Vis-7iszIRw",
@@ -19,4 +25,34 @@ const getBoard = (param) => {
   return board;
 };
 
-export { getBoard };
+const getLeaderboard = async (board) => {
+  const merge = (arr) => {
+    if (arr.length < 2) return arr;
+
+    const left = merge(arr.slice(0, arr.length / 2));
+    const right = merge(arr.slice(arr.length / 2));
+    arr = [];
+
+    while (left.length > 0 && right.length > 0) {
+      left[0].time < right[0].time
+        ? arr.push(left.shift())
+        : arr.push(right.shift());
+    }
+    if (left.length < 1) arr = arr.concat(right);
+    if (right.length < 1) arr = arr.concat(left);
+
+    return arr;
+  };
+
+  const data = (await getDoc(doc(db, "leaderboard", board))).get("list");
+  return merge(data);
+};
+
+const addToLeaderboard = async (val) => {
+  const docRef = doc(db, `leaderboard/${val.board}`);
+  await updateDoc(docRef, {
+    list: arrayUnion({ name: val.name, time: val.time }),
+  });
+};
+
+export { getBoard, getLeaderboard, addToLeaderboard };

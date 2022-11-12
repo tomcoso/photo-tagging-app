@@ -9,8 +9,6 @@ const Target = (props) => {
   const coords = {
     top: top.toFixed(0) + "px",
     left: left.toFixed(0) + "px",
-    // height: target.yend - target.ystart + 40 + "px",
-    // width: target.xend - target.xstart + 40 + "px",
   };
   return ReactDOM.createPortal(
     <span style={coords} className="target">
