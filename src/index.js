@@ -1,10 +1,16 @@
 import React from "react";
 import ReactDOM from "react-dom/client";
+import { BrowserRouter, Route, Routes } from "react-router-dom";
 import App from "./App";
+import Board from "./components/Board";
 
 const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <BrowserRouter basename="/">
+    <Routes>
+      <Route path="/" element={<App />} />
+      <Route path="/game" element={<Board />} />
+      <Route path="*" element={<div>404</div>} />
+    </Routes>
+  </BrowserRouter>
 );

@@ -1,5 +1,5 @@
 import { initializeApp } from "firebase/app";
-import { getFirestore } from "firebase/firestore";
+import { doc, getDoc, getFirestore } from "firebase/firestore";
 
 const firebaseConfig = {
   apiKey: "AIzaSyAqFpWgrCabpwnkNSuyvzu4Vis-7iszIRw",
@@ -12,3 +12,11 @@ const firebaseConfig = {
 
 const app = initializeApp(firebaseConfig);
 const db = getFirestore(app);
+
+const getBoard = (param) => {
+  const docRef = doc(db, `boards/${param}`);
+  const board = getDoc(docRef);
+  return board;
+};
+
+export { getBoard };
