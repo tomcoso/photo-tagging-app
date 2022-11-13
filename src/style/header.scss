@@ -1,0 +1,27 @@
+header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin-bottom: auto;
+  width: 100%;
+  padding: 0.5rem;
+  height: 10vh;
+
+  // border-bottom: 2px solid #0f0f0f;
+  box-shadow: 0px -2px 10px #000;
+  background-color: #2d6a4f;
+  z-index: 1;
+  position: relative;
+
+  > a {
+    text-decoration: none;
+    color: #95d5b2;
+  }
+  h1 {
+    font-family: monospace;
+    font-weight: bold;
+    font-size: 3rem;
+
+    text-shadow: 0px 2px 1px #0f0f0f;
+  }
+}

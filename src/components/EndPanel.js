@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { addToLeaderboard } from "../firebaseApp";
+import "../style/endpanel.scss";
 
 const EndPanel = (props) => {
   const navigate = useNavigate();
@@ -21,7 +22,7 @@ const EndPanel = (props) => {
   };
 
   return (
-    <div>
+    <div id="leaderboard-panel">
       <p>Congratulations!</p>
       <p>You found them all in </p>
       <span>{time}</span>

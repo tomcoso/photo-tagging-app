@@ -12,7 +12,7 @@ const Timer = ({ status, time, setTime }) => {
   }, [status, setTime]);
 
   return (
-    <div>
+    <div id="timer">
       {Number.parseInt(time / 60)
         .toString()
         .padStart(2, "0")}

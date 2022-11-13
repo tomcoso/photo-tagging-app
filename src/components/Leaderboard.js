@@ -1,6 +1,9 @@
 import { useEffect, useState } from "react";
 import { Link, useParams } from "react-router-dom";
 import { getLeaderboard } from "../firebaseApp";
+import "../style/leaderboard.scss";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const Leaderboard = () => {
   const { board } = useParams();
@@ -15,16 +18,29 @@ const Leaderboard = () => {
   }, [board]);
 
   return (
-    <div>
-      <p>Leaderboard</p>
-      <Link to="/">Main menu</Link>
-      {leaderboard &&
-        leaderboard.map((x, i) => (
-          <div key={i}>
-            {x.name} / {x.time}
-          </div>
-        ))}
-    </div>
+    <>
+      <Header />
+      <main id="leaderboard">
+        <div id="lb-info">
+          <Link to="/">Main menu</Link>
+          <h2>
+            {board[0].toUpperCase()}
+            {board.slice(1)} level
+          </h2>
+          <h3>Leaderboard</h3>
+        </div>
+        <ol>
+          {leaderboard &&
+            leaderboard.map((x, i) => (
+              <li key={i}>
+                <span>{x.name}</span>
+                <span>{x.time}</span>
+              </li>
+            ))}
+        </ol>
+      </main>
+      <Footer />
+    </>
   );
 };
 

@@ -5,6 +5,8 @@ import "../style/board.scss";
 import Target from "./Target";
 import Timer from "./Timer";
 import EndPanel from "./EndPanel";
+import Header from "./Header";
+import Footer from "./Footer";
 
 const Board = () => {
   const navigate = useNavigate();
@@ -83,44 +85,59 @@ const Board = () => {
 
   return (
     <>
-      <p>Open Board {searchParams.get("board")}</p>
-      <Link to="/">Go back</Link>
-      <Timer status={status} time={time} setTime={setTime} />
-      <span>
-        Targets:{" "}
-        {targets &&
-          targets.map((x, i) => (
-            <div
-              className={
-                "target-img" + (found.find((j) => j === x) ? " found" : "")
-              }
-              key={i}
-            >
-              <img src={x.imgURL} alt={"target" + i} />
-            </div>
-          ))}
-      </span>
-      <div
-        id="board-main"
-        onClick={handleClick}
-        onDragStart={(e) =>
-          setDrag({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY })
-        }
-        onDragEnd={() => setDrag("")}
-        onDrag={handleDrag}
-      >
-        {status !== 0 ? (
-          status !== 1 ? (
-            <button onClick={() => setStatus(0)}>Start</button>
+      <Header />
+      <section id="info-panel">
+        <h2>
+          {searchParams.get("board")[0].toLocaleUpperCase()}
+          {searchParams.get("board").slice(1)} level
+        </h2>
+        <Link to="/">Main menu</Link>
+        <Timer status={status} time={time} setTime={setTime} />
+      </section>
+      <aside id="targets">
+        <h3>Find these to win!</h3>
+        <div>
+          {targets &&
+            targets.map((x, i) => (
+              <div
+                className={
+                  "target-img" + (found.find((j) => j === x) ? " found" : "")
+                }
+                key={i}
+              >
+                <img src={x.imgURL} alt={"target" + i} />
+              </div>
+            ))}
+        </div>
+      </aside>
+      <section id="board-wrapper">
+        <div
+          id="board-main"
+          onClick={handleClick}
+          onDragStart={(e) =>
+            setDrag({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY })
+          }
+          onDragEnd={() => setDrag("")}
+          onDrag={handleDrag}
+        >
+          {status !== 0 ? (
+            status !== 1 ? (
+              <div id="start-button">
+                <p>Click on the targets to mark them</p>
+                <p>Find all to win</p>
+                <button onClick={() => setStatus(0)}>Start</button>
+              </div>
+            ) : (
+              <EndPanel time={time} board={searchParams.get("board")} />
+            )
           ) : (
-            <EndPanel time={time} board={searchParams.get("board")} />
-          )
-        ) : (
-          <div id="game-img">
-            <img src={board} alt="board" />
-          </div>
-        )}
-      </div>
+            <div id="game-img">
+              <img src={board} alt="board" />
+            </div>
+          )}
+        </div>
+      </section>
+      <Footer />
       {found && found.map((x, i) => <Target key={i} target={x} />)}
     </>
   );
