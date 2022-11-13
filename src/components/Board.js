@@ -137,6 +137,11 @@ const Board = () => {
           )}
         </div>
       </section>
+      <div id="to-lb">
+        <Link to={"/leaderboard/" + searchParams.get("board")}>
+          Leaderboard
+        </Link>
+      </div>
       <Footer />
       {found && found.map((x, i) => <Target key={i} target={x} />)}
     </>

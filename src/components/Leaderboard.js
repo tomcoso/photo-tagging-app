@@ -23,10 +23,12 @@ const Leaderboard = () => {
       <main id="leaderboard">
         <div id="lb-info">
           <Link to="/">Main menu</Link>
-          <h2>
-            {board[0].toUpperCase()}
-            {board.slice(1)} level
-          </h2>
+          <Link to={"/game?board=" + board} id="back-to-game">
+            <h2>
+              {board[0].toUpperCase()}
+              {board.slice(1)} level
+            </h2>
+          </Link>
           <h3>Leaderboard</h3>
         </div>
         <ol>

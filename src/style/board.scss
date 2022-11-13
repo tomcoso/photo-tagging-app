@@ -70,7 +70,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  padding: 4rem 0.5rem;
+  padding: 4rem 0.5rem 2rem 0.5rem;
   background-color: #95d5b2;
   box-shadow: inset 0px 5px 10px -5px #000;
 }
@@ -173,4 +173,22 @@
   z-index: 1;
   color: green;
   line-height: 0%;
+}
+
+#to-lb {
+  a {
+    color: #081c15;
+    text-decoration: none;
+    font-size: 1.5rem;
+    font-weight: bold;
+
+    &:hover {
+      color: #95d5b2;
+      text-shadow: 0px 1px 1px #081c15;
+    }
+  }
+  width: 100%;
+  text-align: center;
+  background-color: #95d5b2;
+  padding-bottom: 2rem;
 }
