@@ -11,7 +11,7 @@ import Footer from "./Footer";
 const Board = () => {
   const navigate = useNavigate();
   const searchParams = useSearchParams()[0];
-  const [drag, setDrag] = useState("");
+  const [drag, setDrag] = useState(false);
   const [board, setBoard] = useState();
   const [targets, setTargets] = useState();
   const [time, setTime] = useState(0);
@@ -27,17 +27,7 @@ const Board = () => {
   }, [searchParams]);
 
   useEffect(() => {
-    console.log(searchParams.get("board"));
-    const arr = [
-      "first",
-      "second",
-      "third",
-      "fourth",
-      "first/leaderboard",
-      "second/leaderboard",
-      "third/leaderboard",
-      "fourth/leaderboard",
-    ];
+    const arr = ["first", "second", "third", "fourth"];
     if (!arr.includes(searchParams.get("board"))) navigate("/");
   }, [navigate, searchParams]);
 
@@ -53,12 +43,11 @@ const Board = () => {
         clickY < each.yend
       ) {
         if (found.find((x) => x === each)) return;
-        console.log("FOUND!");
         setFound((x) => x.concat(each));
         return;
       }
     }
-    console.log("X: " + clickX, "Y: " + clickY);
+    // console.log("X: " + clickX, "Y: " + clickY);
   };
 
   const [status, setStatus] = useState(-1);
@@ -68,11 +57,11 @@ const Board = () => {
     }
   }, [found]);
 
-  const handleDrag = (e) => {
+  const handleMouseMove = (e) => {
+    if (!drag) return;
     const el = document.getElementById("board-main");
-    if (e.clientX === 0 || e.clientY === 0) return;
-    const difX = drag.x - e.nativeEvent.offsetX;
-    const difY = drag.y - e.nativeEvent.offsetY;
+    const difX = -e.nativeEvent.movementX;
+    const difY = -e.nativeEvent.movementY;
     el.scrollBy(difX, difY);
   };
 
@@ -105,21 +94,13 @@ const Board = () => {
                 }
                 key={i}
               >
-                <img src={x.imgURL} alt={"target" + i} />
+                <img draggable="false" src={x.imgURL} alt={"target" + i} />
               </div>
             ))}
         </div>
       </aside>
       <section id="board-wrapper">
-        <div
-          id="board-main"
-          onClick={handleClick}
-          onDragStart={(e) =>
-            setDrag({ x: e.nativeEvent.offsetX, y: e.nativeEvent.offsetY })
-          }
-          onDragEnd={() => setDrag("")}
-          onDrag={handleDrag}
-        >
+        <div id="board-main" onClick={handleClick}>
           {status !== 0 ? (
             status !== 1 ? (
               <div id="start-button">
@@ -132,7 +113,15 @@ const Board = () => {
             )
           ) : (
             <div id="game-img">
-              <img src={board} alt="board" />
+              <img
+                draggable="false"
+                onMouseDown={(e) => setDrag(true)}
+                onMouseUp={() => setDrag(false)}
+                onMouseMove={handleMouseMove}
+                onMouseLeave={() => setDrag(false)}
+                src={board}
+                alt={searchParams.get("board") + "game board"}
+              />
             </div>
           )}
         </div>

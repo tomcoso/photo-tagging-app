@@ -139,12 +139,14 @@
     width: 3900px;
     height: 3900px;
     object-fit: contain;
+    user-select: none;
   }
 
   #game-img {
     width: 3900px;
     height: 3900px;
     position: relative;
+    user-select: none;
   }
 
   .target {
