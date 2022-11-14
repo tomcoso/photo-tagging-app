@@ -72,18 +72,32 @@
   align-items: center;
   padding: 4rem 0.5rem 2rem 0.5rem;
   background-color: #95d5b2;
-  box-shadow: inset 0px 5px 10px -5px #000;
+  box-shadow: inset 0px 10px 10px -10px #000;
 }
 
 #board-main::-webkit-scrollbar {
   display: none;
 }
 
+@media (min-width: 600px) {
+  :root {
+    --game-width: max(75vw, 600px);
+    --game-height: max(55vh, 600px);
+  }
+}
+@media (max-width: 600px) {
+  :root {
+    --game-width: 100%;
+    --game-height: 80vh;
+  }
+}
+
 #board-main {
-  width: clamp(330px, 55vw, 600px);
-  height: clamp(330px, 55vw, 600px);
-  padding: 10px;
+  width: var(--game-width);
+  height: var(--game-height);
+  padding: 5px;
   overflow: scroll;
+  cursor: pointer;
 
   -ms-overflow-style: none; /* IE and Edge */
   scrollbar-width: none; /* Firefox */
